@@ -1,0 +1,12 @@
+import csv
+
+data = [
+    ["Name","Age","City"],
+    ["Alice",30,"New york"],
+    ["bob", 25,"los angeles"],
+    ["charlie",23,"chicago"]
+]
+
+with open("data.csv","w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
