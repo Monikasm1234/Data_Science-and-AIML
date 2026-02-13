@@ -1,23 +1,16 @@
-import pandas as pd
+import matplotlib.pyplot as plt
 
-# Create Series with custom labels
-products = pd.Series(
-    [700, 150, 300],
-    index=["Laptop", "Mouse", "Keyboard"]
-)
+# Data
+months = [1, 2, 3, 4, 5]
+revenue = [2000, 4500, 4000, 7500, 9000]
 
-# Access Laptop price using label-based indexing
-laptop_price = products["Laptop"]
+# Create Line Plot
+plt.plot(months, revenue)
 
-# Slice first two products using positional indexing
-first_two = products.iloc[0:2]
+# Add Title and Labels
+plt.title("Monthly Revenue Growth")
+plt.xlabel("Month")
+plt.ylabel("Revenue in USD")
 
-# Output
-print("Full Product Series:\n")
-print(products)
-
-print("\nPrice of Laptop:")
-print(laptop_price)
-
-print("\nFirst Two Products (Positional Slicing):")
-print(first_two)
+# Display the Plot
+plt.show()
