@@ -1,26 +1,31 @@
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-# Create Series with missing values
-grades = pd.Series([85, None, 92, 45, None, 78, 55])
+# -----------------------------
+# SAMPLE HOUSING DATA
+# -----------------------------
+data = {
+    "SquareFootage": [800, 1000, 1200, 1500, 1800, 2000, 2200, 2500],
+    "Price": [120000, 150000, 170000, 210000, 250000, 280000, 310000, 350000],
+    "Location": ["City","City","Suburb","Suburb",
+                 "City","Suburb","City","Suburb"]
+}
 
-# Identify missing values
-missing = grades.isnull()
+df = pd.DataFrame(data)
 
-# Fill missing values with 0
-filled_grades = grades.fillna(0)
+# -----------------------------
+# 1️⃣ SCATTER PLOT
+# -----------------------------
+plt.figure(figsize=(6,4))
+sns.scatterplot(x="SquareFootage", y="Price", data=df)
+plt.title("SquareFootage vs Price")
+plt.show()
 
-# Filter scores greater than 60
-filtered = filled_grades[filled_grades > 60]
-
-# Output
-print("Original Grades:\n")
-print(grades)
-
-print("\nMissing Values (True means missing):\n")
-print(missing)
-
-print("\nGrades After Filling Missing Values:\n")
-print(filled_grades)
-
-print("\nScores Greater Than 60:\n")
-print(filtered)
+# -----------------------------
+# 2️⃣ BOXPLOT
+# -----------------------------
+plt.figure(figsize=(6,4))
+sns.boxplot(x="Location", y="Price", data=df)
+plt.title("Location vs Price")
+plt.show()

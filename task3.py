@@ -1,17 +1,26 @@
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-# Create Series
-usernames = pd.Series([' Alice ', 'bOB', ' Charlie_Data ', 'daisy'])
+# Sample housing dataset
+data = {
+    "SquareFootage": [800, 1000, 1200, 1500, 1800, 2000, 2200, 2500],
+    "Bedrooms": [2, 2, 3, 3, 4, 4, 4, 5],
+    "Bathrooms": [1, 2, 2, 2, 3, 3, 3, 4],
+    "Price": [200000, 250000, 300000, 360000, 400000, 450000, 480000, 550000]
+}
 
-# Clean the usernames
-cleaned = usernames.str.strip().str.lower()
+df = pd.DataFrame(data)
 
-# Check which names contain the letter 'a'
-contains_a = cleaned.str.contains('a')
+corr_matrix = df.corr()
+print(corr_matrix)
 
-# Output
-print("Cleaned Usernames:\n")
-print(cleaned)
+plt.figure()
+sns.heatmap(corr_matrix, annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap")
+plt.show()
 
-print("\nContains letter 'a':\n")
-print(contains_a)
+plt.figure()
+sns.boxplot(y=df["Price"])
+plt.title("Boxplot of Price")
+plt.show()
