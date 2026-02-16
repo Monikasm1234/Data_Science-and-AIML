@@ -1,10 +1,19 @@
 import matplotlib.pyplot as plt
-study_hours = [1,2,3,4,5]
-marks = [40,50,65,70,85]
 
-plt.scatter(study_hours, marks)
+# Data provided
+study_hours = [1, 2, 3, 4, 5, 6, 7, 8]
+scores = [50, 55, 65, 70, 75, 85, 90, 95]
 
-plt.xlabel("Study Hours")
-plt.ylabel("Marks")
-plt.title("Study Hours vs Marks")
+# Create scatter plot
+plt.scatter(study_hours, scores, color='blue')
+
+# Add title and labels
+plt.title("Study Hours vs Exam Scores")
+plt.xlabel("Hours Spent Studying")
+plt.ylabel("Exam Scores")
+
+# Show grid for better visibility
+plt.grid(True)
+
+# Display plot
 plt.show()
