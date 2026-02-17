@@ -1,39 +1,21 @@
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
+from sklearn.preprocessing import LabelEncoder
 
-# -----------------------------
-# SAMPLE HOUSING DATA
-# -----------------------------
-data = {
-    "Price": [100000,120000,130000,150000,180000,
-              200000,220000,250000,300000,500000],
-    "City": ["Delhi","Mumbai","Delhi","Chennai","Mumbai",
-             "Delhi","Chennai","Delhi","Mumbai","Delhi"]
-}
+# Sample dataset
+df = pd.DataFrame({
+    "Transmission": ["Automatic", "Manual", "Automatic", "Manual"],
+    "Color": ["Red", "Blue", "Green", "Red"]
+})
 
-df = pd.DataFrame(data)
+print("Original Data:")
+print(df)
 
-# -----------------------------
-# 1️⃣ HISTOGRAM + KDE
-# -----------------------------
-plt.figure(figsize=(7,4))
-sns.histplot(df["Price"], kde=True, bins=6)
-plt.title("Price Distribution (Histogram + KDE)")
-plt.xlabel("Price")
-plt.ylabel("Frequency")
-plt.show()
+# Label Encoding (Transmission)
+le = LabelEncoder()
+df["Transmission"] = le.fit_transform(df["Transmission"])
 
-# -----------------------------
-# 2️⃣ SKEWNESS AND KURTOSIS
-# -----------------------------
-print("Skewness :", df["Price"].skew())
-print("Kurtosis :", df["Price"].kurt())
+#One-Hot Encoding (Color)
+df = pd.get_dummies(df, columns=["Color"], drop_first=True)
 
-# -----------------------------
-# 3️⃣ COUNT PLOT (Categorical)
-# -----------------------------
-plt.figure(figsize=(6,4))
-sns.countplot(x="City", data=df)
-plt.title("City Frequency Count")
-plt.show()
+print("\nEncoded Data:")
+print(df)
