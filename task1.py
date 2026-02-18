@@ -1,21 +1,19 @@
-import pandas as pd
-from sklearn.preprocessing import LabelEncoder
+import random
 
-# Sample dataset
-df = pd.DataFrame({
-    "Transmission": ["Automatic", "Manual", "Automatic", "Manual"],
-    "Color": ["Red", "Blue", "Green", "Red"]
-})
+# number of experiments
+trials = 1000
 
-print("Original Data:")
-print(df)
+count_sum_7 = 0
 
-# Label Encoding (Transmission)
-le = LabelEncoder()
-df["Transmission"] = le.fit_transform(df["Transmission"])
+for _ in range(trials):
+    dice1 = random.randint(1, 6)
+    dice2 = random.randint(1, 6)
 
-#One-Hot Encoding (Color)
-df = pd.get_dummies(df, columns=["Color"], drop_first=True)
+    if dice1 + dice2 == 7:
+        count_sum_7 += 1
 
-print("\nEncoded Data:")
-print(df)
+# experimental probability
+experimental_probability = count_sum_7 / trials
+
+print("Number of times sum = 7:", count_sum_7)
+print("Experimental Probability:", experimental_probability)

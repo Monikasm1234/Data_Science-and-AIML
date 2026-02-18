@@ -1,63 +1,38 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
+import random
 
-#  Create Sample Numeric Dataset
-df = pd.DataFrame({
-    "Age": [22, 25, 28, 35, 45, 52, 23, 40],
-    "Salary": [25000, 30000, 32000, 45000, 60000, 80000, 27000, 55000]
-})
+trials = 100000
 
-print("Original Data:\n")
-print(df)
+# ---------- Independent Events ----------
+independent_success = 0
 
-#  Standardization (Mean = 0, Std = 1)
+for _ in range(trials):
+    coin = random.choice(["H", "T"])
+    die = random.randint(1, 6)
 
-standard_scaler = StandardScaler()
+    if coin == "H" and die == 6:
+        independent_success += 1
 
-df_standardized = pd.DataFrame(
-    standard_scaler.fit_transform(df),
-    columns=df.columns
-)
+independent_probability = independent_success / trials
 
-print("\nStandardized Data:\n")
-print(df_standardized)
+print("Independent Event Probability (H and 6):")
+print(independent_probability)
 
-# -------------------------------------
-# 3️⃣ Normalization (Range 0 to 1)
-# -------------------------------------
-minmax_scaler = MinMaxScaler()
 
-df_normalized = pd.DataFrame(
-    minmax_scaler.fit_transform(df),
-    columns=df.columns
-)
+# ---------- Dependent Events (Marbles) ----------
+dependent_success = 0
 
-print("\nNormalized Data:\n")
-print(df_normalized)
+for _ in range(trials):
+    bag = ["R"] * 5 + ["B"] * 5
 
-# -------------------------------------
-# 4️⃣ Histogram Comparison
-# -------------------------------------
-plt.figure(figsize=(12,4))
+    first = random.choice(bag)
+    bag.remove(first)     # WITHOUT replacement
 
-# Before scaling
-plt.subplot(1, 3, 1)
-plt.hist(df["Salary"], bins=5)
-plt.title("Before Scaling")
-plt.xlabel("Salary")
+    second = random.choice(bag)
 
-# After Standardization
-plt.subplot(1, 3, 2)
-plt.hist(df_standardized["Salary"], bins=5)
-plt.title("After Standardization")
-plt.xlabel("Scaled Salary")
+    if first == "R" and second == "R":
+        dependent_success += 1
 
-# After Normalization
-plt.subplot(1, 3, 3)
-plt.hist(df_normalized["Salary"], bins=5)
-plt.title("After Normalization")
-plt.xlabel("Scaled Salary (0-1)")
+dependent_probability = dependent_success / trials
 
-plt.tight_layout()
-plt.show()
+print("\nDependent Event Probability (Both Red):")
+print(dependent_probability)
