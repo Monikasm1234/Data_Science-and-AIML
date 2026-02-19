@@ -1,38 +1,16 @@
-import random
-
-trials = 100000
-
-# ---------- Independent Events ----------
-independent_success = 0
-
-for _ in range(trials):
-    coin = random.choice(["H", "T"])
-    die = random.randint(1, 6)
-
-    if coin == "H" and die == 6:
-        independent_success += 1
-
-independent_probability = independent_success / trials
-
-print("Independent Event Probability (H and 6):")
-print(independent_probability)
-
-
-# ---------- Dependent Events (Marbles) ----------
-dependent_success = 0
-
-for _ in range(trials):
-    bag = ["R"] * 5 + ["B"] * 5
-
-    first = random.choice(bag)
-    bag.remove(first)     # WITHOUT replacement
-
-    second = random.choice(bag)
-
-    if first == "R" and second == "R":
-        dependent_success += 1
-
-dependent_probability = dependent_success / trials
-
-print("\nDependent Event Probability (Both Red):")
-print(dependent_probability)
+import pandas as pd
+import numpy as np
+data = {
+    "values": [10, 12, 11, 13, 12, 14, 15, 100, 11, 12, 13, 14, 12, 13]
+}
+df = pd.DataFrame(data)
+mu = df["values"].mean()
+sigma = df["values"].std()
+print(f"Mean (μ): {mu:.2f}")
+print(f"Standard Deviation (σ): {sigma:.2f}")
+df["z_score"] = (df["values"] - mu) / sigma
+outliers = df[np.abs(df["z_score"]) > 3]
+print("\nDataset with z-scores:")
+print(df)
+print("\nOutliers (|Z| > 3):")
+print(outliers)

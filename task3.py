@@ -1,16 +1,19 @@
-# Given probabilities
-P_spam = 0.1
-P_ham = 0.9
-
-P_free_given_spam = 0.9
-P_free_given_ham = 0.05
-
-# Total probability of "Free"
-P_free = (P_free_given_spam * P_spam) + \
-         (P_free_given_ham * P_ham)
-
-# Bayes Theorem
-P_spam_given_free = (P_free_given_spam * P_spam) / P_free
-
-print("P(Free) =", P_free)
-print("P(Spam | Free) =", P_spam_given_free)
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+np.random.seed(42)
+data = np.random.lognormal(mean=2, sigma=1.5, size=10000)
+sample_means = []
+for _ in range(1000):
+    sample = np.random.choice(data, size=30, replace=True)
+    sample_means.append(np.mean(sample))
+df = pd.DataFrame(sample_means, columns=["sample_mean"])
+plt.figure(figsize=(8,5))
+sns.histplot(df["sample_mean"],
+         kde=True, bins=30, color="skyblue")
+plt.title("Distribution of Sample Means" 
+          "(Central Limit Theorem)")
+plt.xlabel("Sample Mean")
+plt.ylabel("Frequency")
+plt.show()
